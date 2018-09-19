@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	
-	static String dbname = "webbkg";
+	static String dbname = "itoffer";
 	static String user = "root";
 	static String pwd = "741258o";
 	static String url = "jdbc:mysql://localhost:3306/" + dbname + "?user=" + user + "&password=" + pwd
