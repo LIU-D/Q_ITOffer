@@ -65,12 +65,12 @@ function validate() {
 			<div class="all_resume">
 			
 			
-			<form action="resumeBasicinfoServlet?type=add" method="post" onsubmit="return validate();">
+			<form action="../resumeBasicinfoServlet" method="post" onsubmit="return validate();">
 				<div class="table_style">
 					<table width="300" border="0" cellpadding="3" cellspacing="1" bgcolor="#EEEEEE">
 					  <tr>
 					    <th width="110" align="right" bgcolor="#F8F8F8">姓名：</th>
-					    <td bgcolor="#F8F8F8"><input type="text" name="realname" id="realname" value=""></td>
+					    <td bgcolor="#F8F8F8"><input type="text" name="realName" id="realName" value=""></td>
 					  </tr>
 					</table>
 					<div class="he"></div>
@@ -84,7 +84,7 @@ function validate() {
 					<table width="300" border="0" cellpadding="3" cellspacing="1" bgcolor="#EEEEEE">
 					  <tr>
 					    <th width="110" align="right" bgcolor="#F8F8F8">出生日期：</th>
-					    <td bgcolor="#F8F8F8"><input type="text" name="birthday" id="birthday" onclick="SelectDate(this)" readonly="readonly" value=""></td>
+					    <td bgcolor="#F8F8F8"><input type="text" name="birthday" id="birthday" onclick="SelectDate(this)" value=""></td>
 					  </tr>
 					</table>
 					<div class="he"></div>
@@ -140,6 +140,7 @@ function validate() {
 					</table>
 					<div class="he"></div>
 					<div style="margin-left:100px;">
+						<input type="hidden" name="type" value="add">
 						<input name="" type="submit" class="save1" value="保存"> 
 						<input name="" type="reset" class="cancel2" value="取消"></div>
 					</div>

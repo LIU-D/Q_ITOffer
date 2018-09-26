@@ -18,11 +18,11 @@ public class DBUtil {
 	static String user = "root";
 	static String pwd = "741258o";
 	static String url = "jdbc:mysql://localhost:3306/" + dbname + "?user=" + user + "&password=" + pwd
-            			 + "&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT";
+            			 + "&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT&useSSL=false";
 	//在类被加载的时候执行且仅会被执行一次
 	static {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -38,7 +38,7 @@ public class ResumeDAO {
 		 * ;
 		 */
 
-		String sql = "insert into tb_resume(" + "APPLICANT_ID, REALNAME, GENDER, BIRTHDAY, CURRENT_LOC, "
+		String sql = "insert into tb_resume(APPLICANT_ID, REALNAME, GENDER, BIRTHDAY, CURRENT_LOC, "
 				+ "RESIDENT_LOC, TELEPHONE, EMAIL, JOB_INTENSION, JOB_EXPERIENCE)" + " VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 		try {

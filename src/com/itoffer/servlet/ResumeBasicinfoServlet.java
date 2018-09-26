@@ -1,8 +1,6 @@
 package com.itoffer.servlet;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,13 +33,13 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 		
 		//获取请求操作类型
 		String type = request.getParameter("type");
+		System.out.println("TYPE:" + type);
 		//简历添加操作
 		if(type.equals("add")) {
 			//封装请求数据
 			ResumeBasicInfo resume  = addResumeBasicInfo(request);
 			//将数据存储到数据库
 			ResumeDAO dao = new ResumeDAO();
-			//模拟求职者1
 			int basicInfoID = dao.save(resume);
 			//添加简历成功则重定向到简历界面，否则在重新添加
 			if(basicInfoID > 0){
@@ -55,7 +53,7 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 	//将请求的简历数据封装成一个对象
 	private ResumeBasicInfo addResumeBasicInfo(HttpServletRequest request) {
 		//假设已经取得applicantID
-		int applicantID = 24;
+		int applicantID = 22;
 		//获得请求数据
 		String realName = request.getParameter("realName");
 		String gender = request.getParameter("gender");
