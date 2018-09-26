@@ -12,7 +12,7 @@ import com.itoffer.util.DBUtil;
 /*******************************************
  * @author		Lxd027
  * @date		2018-09-16 8:03:41 PM
- * @tags		数据处理、业务流程控制
+ * @tags		数据库-用户注册
  ******************************************/
 
 public class ApplicantDAO {

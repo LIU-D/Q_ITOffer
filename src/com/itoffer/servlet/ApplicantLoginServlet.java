@@ -44,8 +44,9 @@ public class ApplicantLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 设置请求和响应编码
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		// 获取请求参数
 		String email = request.getParameter("email");
@@ -57,7 +58,7 @@ public class ApplicantLoginServlet extends HttpServlet {
 			// 用户登录成功，判断是否已有简历
 			int resumeID = dao.isExistResume(applicantID);
 			if (resumeID != 0) {
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("index.html");
 			} else {
 				// 若简历不存在，则跳到简历填写向导页面
 				response.sendRedirect("regsuccess.html");
