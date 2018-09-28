@@ -14,7 +14,7 @@ import com.itoffer.dao.ResumeDAO;
 /*******************************************
  * @author		Lxd027
  * @date		2018-09-20 6:42:21 PM
- * @tags		请求添加简历
+ * @tags		简历操作
  ******************************************/
 
 @WebServlet("/resumeBasicinfoServlet")
@@ -41,19 +41,22 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 			//将数据存储到数据库
 			ResumeDAO dao = new ResumeDAO();
 			int basicInfoID = dao.save(resume);
+			System.out.println("basicInfoID:" + basicInfoID);
 			//添加简历成功则重定向到简历界面，否则在重新添加
 			if(basicInfoID > 0){
 				response.sendRedirect("applicant/resume.html");
 			}else{
 				response.sendRedirect("applicant/resumeBasicInfoAdd.html");
 			}
-		}//add
+		} else if(type.equals("add")) {
+			
+		}
 	}
 	
 	//将请求的简历数据封装成一个对象
 	private ResumeBasicInfo addResumeBasicInfo(HttpServletRequest request) {
 		//假设已经取得applicantID
-		int applicantID = 22;
+		int applicantID = 19;
 		//获得请求数据
 		String realName = request.getParameter("realName");
 		String gender = request.getParameter("gender");

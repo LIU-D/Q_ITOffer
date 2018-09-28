@@ -50,6 +50,10 @@
 		document.getElementById("bg").style.display = "none";
 		document.getElementById("show").style.display = "none";
 	}
+	//验证码更换
+	function changeValidateCode(){
+		document.getElementById("validateCode").src = "validateCodeServlet?rand=" + Math.random();
+	}
 </script>
 </head>
 
@@ -70,9 +74,9 @@
 							type="password" name="password" id="password">
 					</div>
 					<div class="span1">
-						<label class="tn-form-label">验证码：</label> <input
-							class="tn-textbox-long" type="text"> <span> <img
-							src="images/CaptchaImage.jpg" title="点击换一换"> <a href="#">看不清？</a>
+						<label class="tn-form-label">验证码：</label> <input name="verifyCode" class="tn-textbox-long" type="text"> 
+						<span> <img id="validateCode" src="validateCodeServlet" title="点击换一换" onclick="changValidateCode()">
+						<a href="javascript:changeValidateCode()">看不清？</a>
 						</span>
 					</div>
 					<div class="tn-form-row-button">

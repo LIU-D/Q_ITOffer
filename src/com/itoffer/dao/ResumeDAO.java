@@ -29,18 +29,8 @@ public class ResumeDAO {
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
-
-		/*
-		 * String sql1 = "insert into tb_resume(" +
-		 * "APPLICANT_ID,REALNAME,GENDER,BIRTHDAY,CURRENT_LOC," +
-		 * "RESIDENT_LOC,TELEPHONE,EMAIL,JOB_INTENSION,JOB_EXPERIENCE) " +
-		 * "VALUES (18,'孙海民','男','2005-09-09','','','13333333333333','test@test.com','软件开发','应届毕业生')"
-		 * ;
-		 */
-
 		String sql = "insert into tb_resume(APPLICANT_ID, REALNAME, GENDER, BIRTHDAY, CURRENT_LOC, "
 				+ "RESIDENT_LOC, TELEPHONE, EMAIL, JOB_INTENSION, JOB_EXPERIENCE)" + " VALUES(?,?,?,?,?,?,?,?,?,?)";
-
 		try {
 			pStmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pStmt.setInt(1, resume.getApplicantID());
@@ -66,5 +56,27 @@ public class ResumeDAO {
 		}
 
 		return basicInfoID;
+	}
+	
+	/**
+	 * 简历照片更新
+	 * @param basicinfoId
+	 * @param newFileName
+	 * @return
+	 */
+	public void updateHeadShot(int basicinfoId, String newFileName) {
+		String sql = "UPDATE tb_resume SET HEAD_SHOT=? WHERE BASICINFO_ID=?";
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newFileName);
+			pstmt.setInt(2, basicinfoId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(null, pstmt, conn);
+		}
 	}
 }
