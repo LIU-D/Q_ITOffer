@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itoffer.pojo.Applicant;
 import com.itoffer.pojo.ResumeBasicInfo;
 import com.itoffer.dao.ResumeDAO;
 
@@ -38,9 +39,13 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 		if(type.equals("add")) {
 			//封装请求数据
 			ResumeBasicInfo resume  = addResumeBasicInfo(request);
+			//从会话对象获取当前登陆用户标识
+			Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
 			//将数据存储到数据库
 			ResumeDAO dao = new ResumeDAO();
 			int basicInfoID = dao.save(resume);
+			//将简历标识存入会话对象
+			request.getSession().setAttribute("SESSION_RESUMEID", basicInfoID);
 			System.out.println("basicInfoID:" + basicInfoID);
 			//添加简历成功则重定向到简历界面，否则在重新添加
 			if(basicInfoID > 0){

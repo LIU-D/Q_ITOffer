@@ -41,10 +41,11 @@ public class ResumePicUploadServlet extends HttpServlet {
 		File f = new File(filepath);
 		if(!f.exists()) f.mkdirs();
 		part.write(filepath + "/" + newFileName);
+		//从会话获取简历标识
+		int resumeID = (Integer)request.getSession().getAttribute("SESSION_RESUMEID");
 		//更新简历照片
 		ResumeDAO dao = new ResumeDAO();
-		int basicInfoID = 15;
-		dao.updateHeadShot(basicInfoID,newFileName);
+		dao.updateHeadShot(resumeID, newFileName);
 		//照片更新成功
 		response.sendRedirect("applicant/resume.html");
 	}

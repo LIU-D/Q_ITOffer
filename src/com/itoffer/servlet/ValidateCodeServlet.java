@@ -64,6 +64,9 @@ public class ValidateCodeServlet extends HttpServlet {
 			g.setColor(new Color(20 + r.nextInt(100), 20 + r.nextInt(100), 20 + r.nextInt(110)));
 			g.drawString(rand, 13 * i + 6,  16);
 		}
+		//将验证码 保存session中
+		request.getSession().setAttribute("SESSION_VALIDATECODE", code);
+		
 		System.out.println("生成的随机数是：" + code);
 		//输出图像
 		ImageIO.write(imgbuf, "JPEG", out);

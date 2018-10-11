@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.itoffer.dao.ApplicantDAO;
+import com.itoffer.pojo.Applicant;
 
 /*******************************************
  * @author Lxd027
@@ -55,15 +56,20 @@ public class ApplicantLoginServlet extends HttpServlet {
 		String rememberMe = request.getParameter("rememberMe");
 		// 登录验证
 		ApplicantDAO dao = new ApplicantDAO();
-		//session
-		
 		//cookie
 		rememberMe(rememberMe, email, password, request, response);
 		int applicantID = dao.login(email, password);
 		if (applicantID != 0) {
+			//登陆成功，将求职者信息存入会话对象
+			Applicant applicant = new Applicant(applicantID,email,password);
+			request.getSession().setAttribute("SESSION_APPLICANT", applicant);
+
 			// 用户登录成功，判断是否已有简历
 			int resumeID = dao.isExistResume(applicantID);
 			if (resumeID != 0) {
+				//若已有简历，则将简历标识存到会话对象
+				request.getSession().setAttribute("SESSION_RESUMEID", resumeID);
+				//跳到首页
 				response.sendRedirect("index.html");
 			} else {
 				// 若简历不存在，则跳到简历填写向导页面
