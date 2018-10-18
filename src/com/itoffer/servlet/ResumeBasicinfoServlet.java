@@ -39,8 +39,6 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 		if(type.equals("add")) {
 			//封装请求数据
 			ResumeBasicInfo resume  = addResumeBasicInfo(request);
-			//从会话对象获取当前登陆用户标识
-			Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
 			//将数据存储到数据库
 			ResumeDAO dao = new ResumeDAO();
 			int basicInfoID = dao.save(resume);
@@ -60,8 +58,10 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 	
 	//将请求的简历数据封装成一个对象
 	private ResumeBasicInfo addResumeBasicInfo(HttpServletRequest request) {
+		//从会话对象获取当前登陆用户标识
+		Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
 		//假设已经取得applicantID
-		int applicantID = 19;
+		int applicantID = applicant.getId();
 		//获得请求数据
 		String realName = request.getParameter("realName");
 		String gender = request.getParameter("gender");

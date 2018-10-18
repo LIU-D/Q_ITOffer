@@ -5,7 +5,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 	+ request.getContextPath() + "/";
 
-	Applicant applicant = (Applicant)session.getAttribute("applicant");
+	Applicant applicant = (Applicant)session.getAttribute("SESSION_APPLICANT");
 %>
 
 <!-- top begin -->
@@ -30,7 +30,7 @@
 			}else{
 		%>
 			<a href="resumeBasicInfoServlet?action=info" target="_parent">${sessionScope.applicant.email}<%=applicant.getEmail() %></a>
-			<a href="logoutServlet" target="_parent">退出</a>
+			<a href="applicantLogoutServlet" target="_parent">退出</a>
 		<%		
 			}
 		%>

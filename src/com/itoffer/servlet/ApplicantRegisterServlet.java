@@ -70,7 +70,7 @@ public class ApplicantRegisterServlet extends HttpServlet {
 				//邮箱未被注册，保存注册用户信息
 				dao.save(email,password);
 				//注册成功，重定向到登陆页面
-				response.sendRedirect("login.html");
+				response.sendRedirect("login.jsp");
 			}
 		}
 		

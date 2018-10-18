@@ -21,7 +21,8 @@
 </head>
 <body class="tn-page-bg" >
 
-  <iframe src="top.html" width="100%" height="100"  scrolling="no" frameborder="0" ></iframe>
+  <!-- <iframe src="top.html" width="100%" height="100"  scrolling="no" frameborder="0" ></iframe> -->
+  <jsp:include page="top.jsp"></jsp:include>
   <div id="tn-content" >
       <div class="it-home-topbg">
         <div class="tn-box tn-widget tn-widget-content tn-corner-all it-home-top">

@@ -72,7 +72,7 @@ public class ApplicantLoginServlet extends HttpServlet {
 				request.getSession().setAttribute("SESSION_RESUMEID", resumeID);
 				System.out.println("SESSION_RESUMEID: " + request.getSession().getAttribute("SESSION_RESUMEID"));
 				//跳到首页
-				response.sendRedirect("index.html");
+				response.sendRedirect("index.jsp");
 			} else {
 				// 若简历不存在，则跳到简历填写向导页面
 				response.sendRedirect("regsuccess.html");
