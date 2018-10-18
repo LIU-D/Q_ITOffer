@@ -54,8 +54,7 @@ if (cookies != null) {
 %>
 
 	<!-- 网站公共头部 -->
-	<iframe src="top.html" width="100%" height="100" scrolling="no"
-		frameborder="0"></iframe>
+	<jsp:include page="top.jsp"></jsp:include>
 
 	<!-- 登录部分开始 -->
 	<div class="content">

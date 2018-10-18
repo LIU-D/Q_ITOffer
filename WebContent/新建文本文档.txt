@@ -1,0 +1,28 @@
+﻿
+查询招聘公司的招聘信息
+
+SELECT tb_company.COMPANY_ID, tb_company.COMPANY_NAME, tb_job.JOB_AREA, tb_job.JOB_NAME
+FROM tb_company
+LEFT JOIN tb_job
+ON tb_company.COMPANY_ID = tb_job.COMPANY_ID
+
+
+查询处于招聘状态的最新岗位ID，并以公司ID分组
+
+SELECT MAX(tb_job.JOB_ID)
+FROM tb_job WHERE tb_job.JOB_STATE = 1
+GROUP BY tb_job.COMPANY_ID
+
+
+处于招聘状态的企业信息，以及该企业的最新招聘信息
+
+SELECT tb_company.COMPANY_ID, tb_company.COMPANY_NAME, tb_job.JOB_AREA, tb_job.JOB_NAME
+FROM tb_company
+LEFT JOIN tb_job
+ON tb_company.COMPANY_ID = tb_job.COMPANY_ID
+WHERE tb_company.COMPANY_STATE = 1 and tb_job.JOB_ID IN(
+SELECT MAX(tb_job.JOB_ID)
+FROM tb_job WHERE tb_job.JOB_STATE = 1
+GROUP BY tb_job.COMPANY_ID
+
+)

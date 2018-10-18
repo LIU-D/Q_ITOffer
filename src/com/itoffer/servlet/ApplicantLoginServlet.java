@@ -63,12 +63,14 @@ public class ApplicantLoginServlet extends HttpServlet {
 			//登陆成功，将求职者信息存入会话对象
 			Applicant applicant = new Applicant(applicantID,email,password);
 			request.getSession().setAttribute("SESSION_APPLICANT", applicant);
+			System.out.println("SESSION_APPLICANT: " + request.getSession().getAttribute("SESSION_APPLICANT"));
 
 			// 用户登录成功，判断是否已有简历
 			int resumeID = dao.isExistResume(applicantID);
 			if (resumeID != 0) {
 				//若已有简历，则将简历标识存到会话对象
 				request.getSession().setAttribute("SESSION_RESUMEID", resumeID);
+				System.out.println("SESSION_RESUMEID: " + request.getSession().getAttribute("SESSION_RESUMEID"));
 				//跳到首页
 				response.sendRedirect("index.html");
 			} else {
