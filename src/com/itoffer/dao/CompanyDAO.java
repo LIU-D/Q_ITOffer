@@ -49,4 +49,31 @@ public class CompanyDAO {
 		return list;
 	}
 	
+	public Company getCompanyByID(String companyID) {
+		Company company = new Company();
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM tb_company WHERE COMPANY_ID = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(companyID));
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				company.setId(rs.getInt("COMPANY_ID"));
+				company.setArea(rs.getString("COMPANY_AREA"));
+				company.setBrief(rs.getString("COMPANY_BRIEF"));
+				company.setPic(rs.getString("COMPANY_PIC"));
+				company.setSize(rs.getString("COMPANY_SIZE"));
+				company.setType(rs.getString("COMPANY_TYPE"));
+				company.setViewNum(rs.getInt("COMPANY_ID"));
+				company.setName(rs.getString("COMPANY_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(rs, pstmt, conn);
+		}
+		return company;
+	}
 }

@@ -100,7 +100,7 @@
         <div class="tn-box tn-widget tn-widget-content tn-corner-all it-home-box">
           <div class="tn-box-content tn-widget-content tn-corner-all">
 	        <!-- 企业图片展示 -->
-            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="CompanyServlet?id=<%= c.getId() %>" target="_blank"> <img src="recruit/images/<%= c.getPic() %>" width="990"> </a> </div>
+            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?type=select&id=<%= c.getId() %>" target="_blank"> <img src="recruit/images/<%= c.getPic() %>" width="990"> </a> </div>
             <!-- 招聘职位展示 -->
             <%
             	Set<Job>jobset = c.getJobs();
@@ -115,7 +115,7 @@
                   <p class="it-text-tit">职位</p>
                   <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> 
                   <span class="tn-helper-right tn-action"> 
-                  	<a href="job.html" target="_blank" class="tn-button tn-corner-all tn-button-text-only tn-button-semidlong"> 
+                  	<a href="companyServlet?type=select&id=<%= c.getId() %>" target="_blank" class="tn-button tn-corner-all tn-button-text-only tn-button-semidlong"> 
                   	<span class="tn-button-text">更多职位</span> 
                   	</a> 
                   </span>
