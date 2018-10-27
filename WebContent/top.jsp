@@ -29,7 +29,7 @@
 		<%
 			}else{
 		%>
-			<a href="resumeBasicInfoServlet?action=info" target="_parent">${sessionScope.applicant.email}<%=applicant.getEmail() %></a>
+			<a href="resumeBasicinfoServlet?action=info" target="_parent">${sessionScope.applicant.email}<%=applicant.getEmail() %></a>
 			<a href="applicantLogoutServlet" target="_parent">退出</a>
 		<%		
 			}

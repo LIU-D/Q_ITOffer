@@ -23,8 +23,8 @@ public class CompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public CompanyServlet() { super(); }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type = request.getParameter("type");
-		if(type.equals("select")) {
+		String action = request.getParameter("action");
+		if(action.equals("info")) {
 			String companyID = request.getParameter("id");
 			CompanyDAO dao = new CompanyDAO();
 			Company company = dao.getCompanyByID(companyID);

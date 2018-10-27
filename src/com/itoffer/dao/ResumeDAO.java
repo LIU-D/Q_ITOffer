@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.itoffer.pojo.Company;
 import com.itoffer.pojo.ResumeBasicInfo;
 import com.itoffer.util.DBUtil;
 
@@ -78,5 +79,41 @@ public class ResumeDAO {
 		} finally {
 			DBUtil.closeJDBC(null, pstmt, conn);
 		}
+	}
+	
+	/**
+	 * 根据用户标识查询简历信息
+	 * @param applicantID
+	 * @return
+	 */
+	public ResumeBasicInfo selectBasicinfoByID(int applicantID) {
+		ResumeBasicInfo resume = new ResumeBasicInfo();
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM tb_resume WHERE APPLICANT_ID = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, applicantID);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				resume.setBasicInfoID(rs.getInt("COMPANY_ID"));
+				resume.setRealName(rs.getString("REALNAME"));
+				resume.setGender(rs.getString("GENDER"));
+				resume.setBirthday(rs.getString("BIRTHDAY"));
+				resume.setCurrentLoc(rs.getString("CURRENT_LOC"));
+				resume.setResidentLoc(rs.getString("RESIDENT_LOC"));
+				resume.setTelephone(rs.getString("TELEPHONE"));
+				resume.setEmail(rs.getString("EMAIL"));
+				resume.setJobIntension(rs.getString("JOB_INTENSION"));
+				resume.setJobExperience(rs.getString("JOB_EXPERIENCE"));
+				resume.setHeadShot(rs.getString("HEAD_SHOT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(rs, pstmt, conn);
+		}
+		return resume;
 	}
 }

@@ -2,7 +2,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.itoffer.pojo.Company"%>
 <%@page import="com.itoffer.dao.CompanyDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="error.jsp"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -100,7 +100,7 @@
         <div class="tn-box tn-widget tn-widget-content tn-corner-all it-home-box">
           <div class="tn-box-content tn-widget-content tn-corner-all">
 	        <!-- 企业图片展示 -->
-            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?type=select&id=<%= c.getId() %>" target="_blank"> <img src="recruit/images/<%= c.getPic() %>" width="990"> </a> </div>
+            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?action=info&id=<%= c.getId() %>" target="_blank"> <img src="recruit/images/<%= c.getPic() %>" width="990"> </a> </div>
             <!-- 招聘职位展示 -->
             <%
             	Set<Job>jobset = c.getJobs();
@@ -115,7 +115,7 @@
                   <p class="it-text-tit">职位</p>
                   <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> 
                   <span class="tn-helper-right tn-action"> 
-                  	<a href="companyServlet?type=select&id=<%= c.getId() %>" target="_blank" class="tn-button tn-corner-all tn-button-text-only tn-button-semidlong"> 
+                  	<a href="companyServlet?action=info&id=<%= c.getId() %>" target="_blank" class="tn-button tn-corner-all tn-button-text-only tn-button-semidlong"> 
                   	<span class="tn-button-text">更多职位</span> 
                   	</a> 
                   </span>

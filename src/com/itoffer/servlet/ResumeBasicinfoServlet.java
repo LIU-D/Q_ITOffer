@@ -1,6 +1,7 @@
 package com.itoffer.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.itoffer.pojo.Applicant;
+import com.itoffer.pojo.Company;
+import com.itoffer.pojo.Job;
 import com.itoffer.pojo.ResumeBasicInfo;
+import com.itoffer.dao.CompanyDAO;
+import com.itoffer.dao.JobDAO;
 import com.itoffer.dao.ResumeDAO;
 
 /*******************************************
@@ -25,7 +30,18 @@ public class ResumeBasicinfoServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
+		
+		String action = request.getParameter("action");
+		if(action.equals("info")) {
+			Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
+			ResumeDAO dao = new ResumeDAO();
+			ResumeBasicInfo resume  = dao.selectBasicinfoByID(applicant.getId());
+			request.setAttribute("resume", resume);
+			request.getRequestDispatcher("applicant/resume.jsp").forward(request, response);
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
