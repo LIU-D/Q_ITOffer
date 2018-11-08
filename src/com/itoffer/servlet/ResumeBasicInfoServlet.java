@@ -1,7 +1,6 @@
 package com.itoffer.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.itoffer.pojo.Applicant;
-import com.itoffer.pojo.Company;
-import com.itoffer.pojo.Job;
 import com.itoffer.pojo.ResumeBasicInfo;
-import com.itoffer.dao.CompanyDAO;
-import com.itoffer.dao.JobDAO;
 import com.itoffer.dao.ResumeDAO;
 
 /*******************************************
@@ -23,10 +18,10 @@ import com.itoffer.dao.ResumeDAO;
  * @tags		简历操作
  ******************************************/
 
-@WebServlet("/resumeBasicinfoServlet")
-public class ResumeBasicinfoServlet extends HttpServlet {
+@WebServlet("/resumeBasicInfoServlet")
+public class ResumeBasicInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public ResumeBasicinfoServlet() {
+    public ResumeBasicInfoServlet() {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,12 +30,20 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		
 		String action = request.getParameter("action");
+		
 		if(action.equals("info")) {
 			Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
 			ResumeDAO dao = new ResumeDAO();
-			ResumeBasicInfo resume  = dao.selectBasicinfoByID(applicant.getId());
+			ResumeBasicInfo resume  = dao.selectBasicInfoByID(applicant.getId());
 			request.setAttribute("resume", resume);
 			request.getRequestDispatcher("applicant/resume.jsp").forward(request, response);
+			
+		}else if(action.equals("edit")) {
+			Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
+			ResumeDAO dao = new ResumeDAO();
+			ResumeBasicInfo resume  = dao.selectBasicInfoByID(applicant.getId());
+			request.setAttribute("resume", resume);
+			request.getRequestDispatcher("applicant/resumeBasicInfoUpdate.jsp").forward(request, response);
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,7 +63,7 @@ public class ResumeBasicinfoServlet extends HttpServlet {
 			int basicInfoID = dao.save(resume);
 			//将简历标识存入会话对象
 			request.getSession().setAttribute("SESSION_RESUMEID", basicInfoID);
-			System.out.println("basicInfoID:" + basicInfoID);
+			//System.out.println("basicInfoID:" + basicInfoID);
 			//添加简历成功则重定向到简历界面，否则在重新添加
 			if(basicInfoID > 0){
 				response.sendRedirect("applicant/resume.html");

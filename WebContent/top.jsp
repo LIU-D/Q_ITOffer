@@ -7,7 +7,9 @@
 
 	Applicant applicant = (Applicant)session.getAttribute("SESSION_APPLICANT");
 %>
-
+<base href=" <%=basePath%>"> 
+</head>
+<body>
 <!-- top begin -->
 <div class="head">
 	<div class="head_area">
@@ -16,7 +18,7 @@
 				<li><img src="images/nav_inc1.png" /><a href="index.jsp" target="_parent">首页</a></li>
 				<li><img src="images/nav_inc2.png" /><a href="#">成功案例</a></li>
 				<li><img src="images/nav_inc3.png" /><a href="#">关于锐聘</a></li>
-				<li><img src="images/nav_inc3.png" /><a href="applicant/resume.html" target="_parent">我的简历</a></li>
+				<li><img src="images/nav_inc3.png" /><a href="resumeBasicInfoServlet?action=info" target="_parent">我的简历</a></li>
 			</ul>
 		</div>
 		<div class="head_logo"><img src="images/head_logo.png" /></div>
@@ -29,7 +31,7 @@
 		<%
 			}else{
 		%>
-			<a href="resumeBasicinfoServlet?action=info" target="_parent">${sessionScope.applicant.email}<%=applicant.getEmail() %></a>
+			<a href="resumeBasicInfoServlet?action=info" target="_parent">${sessionScope.applicant.email}<%=applicant.getEmail() %></a>
 			<a href="applicantLogoutServlet" target="_parent">退出</a>
 		<%		
 			}

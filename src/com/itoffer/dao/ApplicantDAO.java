@@ -57,7 +57,6 @@ public class ApplicantDAO {
 			pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			DBUtil.closeJDBC(null, pstmt, conn);

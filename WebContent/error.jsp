@@ -61,9 +61,8 @@
 	margin-left: 20px;
 }
 </style>
-</head>
-<body>
 <jsp:include page="top.jsp"></jsp:include>
+
 <div class="success_content">
   <div class="success_left">
     <div class="it-pageimg"></div>

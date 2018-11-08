@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page import="com.itoffer.pojo.Applicant"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="../error.jsp" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,23 +7,14 @@
 <title>我的简历 - 锐聘网</title>
 <link href="./css/base.css" type="text/css" rel="stylesheet" />
 <link href="./css/my_resume.css" type="text/css" rel="stylesheet" />
-<meta
-	content="大学生求职,大学生就业,大学生招聘,IT人才,IT人才招聘,大学生名企招聘,,大学生找工作,IT名企招聘，IT行业招聘，IT企业快速入职"
-	name="keywords">
-<meta
-	content="锐聘专注于为企业提供高效的人力资源解决方案，同时面向IT类技术人才推出快速一站式免费就业服务。秉承QST青软实训人才服务理念，为数千家企业量身定做个性化、全程化的人才培养体系，同时帮助中高级人才铺设成功之路，为人才和企业架设起沟通之桥。"
-	name="description">
 
-</head>
-
-<body>
-	<jsp:include page="../top.jsp"></jsp:include>
-	<jsp:useBean id="resume" class="com.itoffer.pojo.ResumeBasicInfo" scope="request"></jsp:useBean>
+<jsp:include page="../top.jsp"/>
+<jsp:useBean id="resume" class="com.itoffer.pojo.ResumeBasicInfo" scope="request"/>
 	<div class="resume_con">
 		<!--tab设置-->
 		<div class="user_operate">
 			<ul style="float: left">
-				<li><a href="resumeBasicinfoServlet?action=info" class="active">我的简历</a></li>
+				<li><a href="resumeBasicInfoServlet?action=info" class="active">我的简历</a></li>
 				<li><a href="jobApply.html">我的申请</a></li>
 				<div class="clear"></div>
 			</ul>
@@ -36,7 +27,7 @@
 				<div class="resume_title">
 					<div style="float: left">基本信息</div>
 					<div class="btn">
-						<a href="resumeBasicinfoUpdate.html">修改</a>
+						<a href="resumeBasicInfoServlet?action=edit">修改</a>
 					</div>
 				</div>
 				<div class="all_resume">
@@ -55,7 +46,23 @@
 							bgcolor="#EEEEEE">
 							<tr>
 								<th width="110" align="right" bgcolor="#F8F8F8">性别：</th>
-								<td bgcolor="#F8F8F8"><jsp:getProperty property="realName" name="resume"/></td>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="gender" name="resume"/></td>
+							</tr>
+						</table>
+						<div class="he"></div>
+						<table width="300" border="0" cellpadding="3" cellspacing="1"
+							bgcolor="#EEEEEE">
+							<tr>
+								<th width="110" align="right" bgcolor="#F8F8F8">当前所在地：</th>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="currentLoc" name="resume"/></td>
+							</tr>
+						</table>
+						<div class="he"></div>
+						<table width="300" border="0" cellpadding="3" cellspacing="1"
+							bgcolor="#EEEEEE">
+							<tr>
+								<th width="110" align="right" bgcolor="#F8F8F8">户口所在地：</th>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="residentLoc" name="resume"/></td>
 							</tr>
 						</table>
 						<div class="he"></div>
@@ -63,7 +70,7 @@
 							bgcolor="#EEEEEE">
 							<tr>
 								<th width="110" align="right" bgcolor="#F8F8F8">出生日期：</th>
-								<td bgcolor="#F8F8F8"><jsp:getProperty property="realName" name="resume"/></td>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="birthday" name="resume"/></td>
 							</tr>
 						</table>
 						<div class="he"></div>
@@ -71,7 +78,7 @@
 							bgcolor="#EEEEEE">
 							<tr>
 								<th width="110" align="right" bgcolor="#F8F8F8">手机：</th>
-								<td bgcolor="#F8F8F8"><jsp:getProperty property="realName" name="resume"/></td>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="telephone" name="resume"/></td>
 							</tr>
 						</table>
 						<div class="he"></div>
@@ -79,7 +86,7 @@
 							bgcolor="#EEEEEE">
 							<tr>
 								<th width="110" align="right" bgcolor="#F8F8F8">邮件：</th>
-								<td bgcolor="#F8F8F8"><jsp:getProperty property="realName" name="resume"/></td>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="email" name="resume"/></td>
 							</tr>
 						</table>
 						<div class="he"></div>
@@ -87,7 +94,7 @@
 							bgcolor="#EEEEEE">
 							<tr>
 								<th width="110" align="right" bgcolor="#F8F8F8">求职意向：</th>
-								<td bgcolor="#F8F8F8"><jsp:getProperty property="realName" name="resume"/></td>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="jobIntension" name="resume"/></td>
 							</tr>
 						</table>
 						<div class="he"></div>
@@ -95,15 +102,25 @@
 							bgcolor="#EEEEEE">
 							<tr>
 								<th width="110" align="right" bgcolor="#F8F8F8">工作经验：</th>
-								<td bgcolor="#F8F8F8"><jsp:getProperty property="realName" name="resume"/></td>
+								<td bgcolor="#F8F8F8"><jsp:getProperty property="jobExperience" name="resume"/></td>
 							</tr>
 						</table>
 						<div class="he"></div>
 					</div>
 					<div style="float: right" class="uploade">
-						<img src="../images/person_img.jpg">
+						<%
+							if(resume.getHeadShot().equals(null)){
+						%>		
+							<img style="width:250px" src="applicant/images/anonymous.png">		
+						<%
+							}else{
+						%>
+							<img style="width:250px" src="applicant/images/<jsp:getProperty property="headShot" name="resume"/>">
+						<%		
+							}
+						%>
 						<div align="center">
-							<a href="resumeBasicInfoPicUpload.html" class="uploade_btn">更换照片</a>
+							<a href="applicant/resumeBasicInfoPicUpload.html" class="uploade_btn">更换照片</a>
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -314,7 +331,7 @@
 
 			</div>
 			<!--右边-->
-			<iframe src="./resume_right.html" width="290" height="650"
+			<iframe src="applicant/resume_right.html" width="290" height="650"
 				scrolling="no" frameborder="0"></iframe>
 
 			<div style="clear: both"></div>

@@ -76,4 +76,111 @@ public class CompanyDAO {
 		}
 		return company;
 	}
+	
+	/**
+	 * 
+	 * 处于招聘状态企业，  分页读取数据库记录
+	 * 
+	 */
+	public List<Company> getCompanyPageList(int pageNo,int pageSize) {
+		/*
+		 *  SELECT *
+			FROM tb_company LEFT JOIN tb_job 
+			ON tb_job.company_id=tb_company.company_id 
+			WHERE company_state=1 and job_id IN (SELECT MAX(job_id) FROM tb_job WHERE job_state=1 GROUP BY company_id)
+			LIMIT 1,2
+		 */
+		//开始和结束位置
+		
+		List<Company> list = new ArrayList<Company>();
+		int beginPos = (pageNo - 1) * pageSize;
+		//int endPos = beginPos + pageSize;
+		
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT * FROM tb_company "
+				+ "LEFT JOIN tb_job "
+				+ "ON tb_job.company_id=tb_company.company_id "
+				+ "WHERE company_state=1 and job_id IN (SELECT MAX(job_id) FROM tb_job WHERE job_state=1 GROUP BY company_id) "
+				+ "LIMIT ?,?";
+		try {
+				pStmt = conn.prepareStatement(sql);
+				pStmt.setInt(1, beginPos);
+				pStmt.setInt(2, pageSize);
+				rs = pStmt.executeQuery();
+				while(rs.next()){
+					int companyID = rs.getInt("company_id");
+					String pic = rs.getString("company_pic");
+					String name = rs.getString("company_name");
+					int viewNum = rs.getInt("company_viewnum");
+					
+					int jobID = rs.getInt("job_id");
+					String jobName = rs.getString("job_name");
+					String jobArea = rs.getString("job_area");
+					String jobSalary = rs.getString("job_salary");
+					String jobTime = rs.getString("job_endtime");
+					
+					Company company = new Company();
+					company.setId(companyID);
+					company.setPic(pic);
+					company.setName(name);
+					company.setViewNum(viewNum);
+					
+					Job job = new Job();
+					job.setId(jobID);
+					job.setName(jobName);
+					job.setArea(jobArea);
+					job.setSalary(jobSalary);
+					job.setEndTime(jobTime);
+					
+					company.getJobs().add(job);
+					//加入链表
+					list.add(company);
+				}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			DBUtil.closeJDBC(rs, pStmt, conn);
+		}
+
+		return list;
+	}
+	
+
+	/**
+	 * 
+	 * 
+	 * @author sunhm
+	 * @日期:2018年10月30日
+	 * @功能：处于招聘状态的企业数量
+	 * @return
+	 *
+	 */
+	public int getRecordCount() {
+		int recordCount = 0;
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT count(*) FROM tb_company "
+					+ "LEFT JOIN tb_job ON tb_job.company_id=tb_company.company_id "
+					+ "WHERE company_state=1 and job_id IN ("
+					+ "SELECT MAX(job_id) FROM tb_job WHERE job_state=1 GROUP BY company_id"
+					+ ")";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				recordCount = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(rs, pstmt, conn);
+		}
+		return recordCount;
+	}
+
 }

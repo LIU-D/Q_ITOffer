@@ -32,7 +32,7 @@
     border-radius: 8px;
     float: left;
     margin: 0 0 0 60px;
-    padding: 42px 50px;}
+   /*  padding: 42px 50px; */}
 .uploade img{}
 .uploade_btn{color:#19a8b6;background:url(../images/btn_Myoperate.png) no-repeat; width:64px; height:27px;display:inline-block; line-height:27px}
 .uploade_btn:hover{color:black;}

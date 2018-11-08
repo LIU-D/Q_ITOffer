@@ -2,27 +2,16 @@
 <%@page import="java.util.*"%>
 <%@page import="com.itoffer.pojo.Company"%>
 <%@page import="com.itoffer.dao.CompanyDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="error.jsp"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="error.jsp" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>RTO服务_锐聘官网-大学生求职,大学生就业,IT行业招聘，IT企业快速入职 - 锐聘网</title>
-<meta name="renderer" content="ie-stand">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<meta content="ItOffer" name="generator">
-<meta content="大学生求职,大学生就业,大学生招聘,IT人才,IT人才招聘,大学生名企招聘,,大学生找工作,IT名企招聘，IT行业招聘，IT企业快速入职" name="keywords">
-<meta content="锐聘专注于为企业提供高效的人力资源解决方案，同时面向IT类技术人才推出快速一站式免费就业服务。秉承QST青软实训人才服务理念，为数千家企业量身定做个性化、全程化的人才培养体系，同时帮助中高级人才铺设成功之路，为人才和企业架设起沟通之桥。" name="description">
 <link href="css/base.css" type="text/css" rel="stylesheet" />
 <link href="css/index.css" type="text/css" rel="stylesheet" />
 <script src="js/a.js" type="text/javascript"></script>
-
-</head>
-<body class="tn-page-bg" >
-
-  <!-- <iframe src="top.html" width="100%" height="100"  scrolling="no" frameborder="0" ></iframe> -->
-  <jsp:include page="top.jsp"></jsp:include>
+<jsp:include page="top.jsp"/>
   <div id="tn-content" >
       <div class="it-home-topbg">
         <div class="tn-box tn-widget tn-widget-content tn-corner-all it-home-top">
