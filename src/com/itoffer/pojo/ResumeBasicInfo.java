@@ -23,10 +23,11 @@ public class ResumeBasicInfo {
 	private String headShot;
 	private String updateResult;
 
-	public void setResumeUpdate(ResumeBasicInfo resumeBasicInfo) {
+	public void setResumeUpdate(ResumeBasicInfo resume) {
 		try {
 			ResumeDAO dao = new ResumeDAO();
-			dao.update(resumeBasicInfo);
+			dao.update(resume);
+			
 		} catch (Exception e) {
 			updateResult = "更新失败";
 		}

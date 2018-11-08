@@ -90,7 +90,7 @@ public class ResumeDAO {
 	 */
 	public ResumeBasicInfo selectBasicInfoByID(int applicantID) {
 		ResumeBasicInfo resume = new ResumeBasicInfo();
-		//System.out.println(applicantID);
+		//System.out.println("resumeDAO:" + applicantID);
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -101,7 +101,6 @@ public class ResumeDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				resume.setBasicInfoID(rs.getInt("BASICINFO_ID"));
-				resume.setBasicInfoID(rs.getInt("APPLICANT_ID"));
 				resume.setRealName(rs.getString("REALNAME"));
 				resume.setGender(rs.getString("GENDER"));
 				resume.setBirthday(rs.getString("BIRTHDAY"));
@@ -118,6 +117,7 @@ public class ResumeDAO {
 		} finally {
 			DBUtil.closeJDBC(rs, pstmt, conn);
 		}
+		//System.out.println("resumeID: " + resume.getBasicInfoID());
 		return resume;
 	}
 	
@@ -128,11 +128,12 @@ public class ResumeDAO {
 	 * @return bRet
 	 */
 	public boolean update(ResumeBasicInfo resume) {
+		//System.out.println(resume.getBasicInfoID());
 		boolean bRet = false;
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement pStmt = null;
-		String sql = "update tb_resume set " + "REALNAME=?, GENDER=?,BIRTHDAY=?,CURRENT_LOC=?,RESIDENT_LOC=?,"
-				+ "TELEPHONE=?,EMAIL=?,JOB_INTENSION=?,JOB_EXPERIENCE=? " + "where BASICINFO_ID=?";
+		String sql = "UPDATE tb_resume SET REALNAME = ?, GENDER = ?, BIRTHDAY = ?, CURRENT_LOC=?, RESIDENT_LOC = ?, "
+				+ "TELEPHONE = ?, EMAIL = ?, JOB_INTENSION = ?, JOB_EXPERIENCE = ? WHERE BASICINFO_ID = ?";
 		try {
 			pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, resume.getRealName());
@@ -145,13 +146,14 @@ public class ResumeDAO {
 			pStmt.setString(8, resume.getJobIntension());
 			pStmt.setString(9, resume.getJobExperience());
 			pStmt.setInt(10, resume.getBasicInfoID());
-			bRet = pStmt.executeUpdate() > 0 ? true : false;
-
+			bRet = pStmt.executeUpdate() >0 ? true:false;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeJDBC(null, pStmt, conn);
 		}
+		//System.out.println(bRet);
 		return bRet;
 	}
 
