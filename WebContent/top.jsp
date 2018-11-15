@@ -5,7 +5,6 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 	+ request.getContextPath() + "/";
 
-	Applicant applicant = (Applicant)session.getAttribute("SESSION_APPLICANT");
 %>
 <base href=" <%=basePath%>"> 
 </head>
@@ -24,14 +23,14 @@
 		<div class="head_logo"><img src="images/head_logo.png" /></div>
 		<div class="head_user">
 		<%
-			if(null == applicant){
+			if(null == session.getAttribute("SESSION_APPLICANT")){
 		%>		
 			<a href="login.jsp" target="_parent"><span class="type1">登录</span></a>
 			<a href="register.jsp" target="_parent"><span class="type2">注册</span></a>			
 		<%
 			}else{
 		%>
-			<a href="resumeBasicInfoServlet?action=info" target="_parent">${sessionScope.applicant.email}<%=applicant.getEmail() %></a>
+			<a href="resumeBasicInfoServlet?action=info" target="_parent">${sessionScope.SESSION_APPLICANT.email}</a>
 			<a href="applicantLogoutServlet" target="_parent">退出</a>
 		<%		
 			}

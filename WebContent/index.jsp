@@ -2,6 +2,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.itoffer.pojo.Company"%>
 <%@page import="com.itoffer.dao.CompanyDAO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="error.jsp" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,6 +12,16 @@
 <link href="css/base.css" type="text/css" rel="stylesheet" />
 <link href="css/index.css" type="text/css" rel="stylesheet" />
 <script src="js/a.js" type="text/javascript"></script>
+<style>
+.page01{
+	margin-top:10px;
+	text-align:center;
+}
+.page03{
+	margin:5px;
+	display:inline;
+}
+</style>
 <jsp:include page="top.jsp"/>
   <div id="tn-content" >
       <div class="it-home-topbg">
@@ -78,24 +89,21 @@
         </div>
       </div>
       
- 	   <!-- 招聘企业展示 -->
-     <%
-     	CompanyDAO dao = new CompanyDAO();
-     	List<Company> list = dao.getCompanyList();
-     	if(list != null)
-    		for(Company c: list){     
-     %>
+      <!-- 获取分页功能 -->
+	<jsp:useBean id="pagination" class="com.itoffer.pojo.CompanyPageBean" scope="request"></jsp:useBean>
+	<!-- 指定每页显示的信息数量 -->
+	<jsp:setProperty property="pageSize" value="1" name="pagination"/>
+	<!-- 从pageOn请求参数中获取当前页码 -->
+	<jsp:setProperty property="pageNo" param="pageNo" name="pagination"/>
+ 	<!-- 招聘企业展示 -->
+    <c:forEach var="company" items="${pagination.pageData }">
       <div class="tn-grid">
         <div class="tn-box tn-widget tn-widget-content tn-corner-all it-home-box">
           <div class="tn-box-content tn-widget-content tn-corner-all">
 	        <!-- 企业图片展示 -->
-            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?action=info&id=<%= c.getId() %>" target="_blank"> <img src="recruit/images/<%= c.getPic() %>" width="990"> </a> </div>
+            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?action=info&id=${company.id }" target="_blank"> <img src="recruit/images/${company.pic }" width="990"> </a> </div>
             <!-- 招聘职位展示 -->
-            <%
-            	Set<Job>jobset = c.getJobs();
-            	if(jobset != null)
-            		for(Job job : jobset){
-            %>
+            <c:forEach var="job" items="${company.jobs }">
             <div class="it-home-present">
              
               <div class="it-present-btn"> <a class=" tn-button tn-button-home-apply" href="#"> <span class="tn-button-text">我要申请</span> </a> </div>
@@ -104,35 +112,55 @@
                   <p class="it-text-tit">职位</p>
                   <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> 
                   <span class="tn-helper-right tn-action"> 
-                  	<a href="companyServlet?action=info&id=<%= c.getId() %>" target="_blank" class="tn-button tn-corner-all tn-button-text-only tn-button-semidlong"> 
+                  	<a href="companyServlet?action=info&id=${company.id }" target="_blank" class="tn-button tn-corner-all tn-button-text-only tn-button-semidlong"> 
                   	<span class="tn-button-text">更多职位</span> 
                   	</a> 
                   </span>
-                  <a href="job.html" target="_blank" title=".NET软件开发工程师"><%= job.getName() %></a> </p>
+                  <a href="job.html" target="_blank" title=".NET软件开发工程师">${job.name }</a> </p>
                   
                 </div>
                 <div class="it-line01 it-text-top">
                   <p class="it-text-tit">薪资</p>
-                  <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> <b title="3000起"><%= job.getSalary() %></b> </p>
+                  <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> <b title="3000起">${job.salary }</b> </p>
                 </div>
               </div>
               <div class="it-present-text">
                 <div class="it-line01 it-text-bom">
                   <p class="it-text-tit" style="width:70px">到期时间</p>
-                  <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span>  <a href="job.html" target="_blank" title=".NET软件开发工程师"><%= job.getEndTime() %></a> </p>
+                  <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span>  <a href="job.html" target="_blank" title=".NET软件开发工程师">${job.endTime }</a> </p>
                   
                 </div>
                 <div class="it-line01 it-text-top">
                   <p class="it-text-tit" style="width:70px">工作地区</p>
-                  <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> <b title="3000起"><%= job.getArea() %></b> </p>
+                  <p class="it-line01 it-text-explain"> <span class="tn-icon it-home-arrow"></span> <b title="3000起">${job.area }</b> </p>
                 </div>
               </div>
             </div>
           </div>
-          		  <%} %>
+          </c:forEach>
         </div>
       </div>
-  	        <% } %>
+  	</c:forEach>
+  	  <!-- 翻页 -->
+  	  <div class="page01">
+  	  	<div class="page03"><a href="index.jsp?pageNo=1">首页</a></div>
+  	  	<%if(pagination.isHasPreviousPage()){ %>
+  	  	<div class="page03">
+  	  		<a href="index.jsp?pageNo=<%=pagination.getPageNo() - 1 %>">上一页</a>
+  	  	</div>
+		<%} %>
+		<%if(pagination.isHasNextPage()){ %>
+  	  	<div class="page03">
+  	  		<a href="index.jsp?pageNo=<%=pagination.getPageNo() + 1 %>">下一页</a>
+  	  	</div>
+		<%} %>
+		<div class="page03">
+  	  		<a href="index.jsp?pageNo=<%=pagination.getTotalPages() %>">尾页</a>
+  	  	</div>
+  	  	<div class="page03">当前是第<jsp:getProperty property="pageNo" name="pagination"/>页，
+  	  		共<jsp:getProperty property="totalPages" name="pagination"/>页
+  	  	</div>
+  	  </div>
       <script type="text/javascript">
     function setShare(title, url) {
         jiathis_config.title = title;
