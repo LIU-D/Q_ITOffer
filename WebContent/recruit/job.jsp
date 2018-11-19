@@ -41,7 +41,7 @@
           </tbody>
         </table>
         <div class="it-post-count">
-          <div class="it-com-apply"> <a href="javascript:void(0)" title="我要申请" style="background: url(images/it-button.png) no-repeat -224px -395px;" class="tn-button it-smallbutton-apply-hover"></a> </div>
+          <div class="it-com-apply"> <a href="jobApplyServlet?action=apply&jobid=${requestScope.job.id }" title="我要申请" style="background: url(images/it-button.png) no-repeat -224px -395px;" class="tn-button it-smallbutton-apply-hover"></a> </div>
           <ul class="tn-text-note it-text-part">
             <!-- <li class="jobli"><span class="tn-explain-icon"><span class="tn-icon it-icon-time"></span><span class="tn-icon-text" id="leftTimeShowSpan">
               <label>已过期</label> -->
