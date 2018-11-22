@@ -73,7 +73,7 @@ public class ApplicantLoginServlet extends HttpServlet {
 			// 用户登录信息错误，进行错误提示
 			out.print("<script type='text/javascript'>");
 			out.print("alert('用户名或密码错误，请重新输入！');");
-			out.print("window.location='login.html';");
+			out.print("window.location='login.jsp';");
 			out.print("</script>");
 		}
 	}

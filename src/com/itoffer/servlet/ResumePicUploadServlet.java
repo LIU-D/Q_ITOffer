@@ -47,6 +47,6 @@ public class ResumePicUploadServlet extends HttpServlet {
 		ResumeDAO dao = new ResumeDAO();
 		dao.updateHeadShot(resumeID, newFileName);
 		//照片更新成功
-		response.sendRedirect("applicant/resume.html");
+		response.sendRedirect(request.getContextPath() + "/resumeBasicInfoServlet?action=info");
 	}
 }

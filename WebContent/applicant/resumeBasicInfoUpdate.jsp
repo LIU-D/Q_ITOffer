@@ -1,15 +1,9 @@
 <%@page import="com.itoffer.pojo.Applicant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="../error.jsp" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-	+ request.getContextPath() + "/";
-
-	Applicant applicant = (Applicant)session.getAttribute("SESSION_APPLICANT");
-%>
-<base href=" <%=basePath%>"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>我的简历 - 锐聘网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet" />
@@ -129,9 +123,17 @@
 				</form>
 
 				</div>
-				<div style="float:right" class="uploade"><img src="images/person_img.jpg">
+				<div style="float:right" class="uploade">
+				<c:choose>
+					<c:when test="${not empty requestScope.resume.headShot }">
+						<img style="width:250px" src="applicant/images/<jsp:getProperty property="headShot" name="resume"/>">
+					</c:when>
+					<c:otherwise>
+						<img style="width:250px" src="applicant/images/anonymous.png">
+					</c:otherwise>	
+				</c:choose>
 					<div align="center">
-						<a href="resumeBasicInfoPicUpload.html" class="uploade_btn">更换照片</a>
+						<a href="applicant/resumeBasicInfoPicUpload.jsp" class="uploade_btn">更换照片</a>
 					</div>
 				</div>
 				<div class="clear"></div>

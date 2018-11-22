@@ -100,6 +100,7 @@ public class ResumeDAO {
 			pstmt.setInt(1, applicantID);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
+				resume.setApplicantID(applicantID);
 				resume.setBasicInfoID(rs.getInt("BASICINFO_ID"));
 				resume.setRealName(rs.getString("REALNAME"));
 				resume.setGender(rs.getString("GENDER"));

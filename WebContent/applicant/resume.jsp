@@ -1,4 +1,5 @@
 <%@page import="com.itoffer.pojo.Applicant"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="../error.jsp" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -108,19 +109,16 @@
 						<div class="he"></div>
 					</div>
 					<div style="float: right" class="uploade">
-						<%
-							if(resume.getHeadShot().equals(null)){
-						%>		
-							<img style="width:250px" src="applicant/images/anonymous.png">		
-						<%
-							}else{
-						%>
-							<img style="width:250px" src="applicant/images/<jsp:getProperty property="headShot" name="resume"/>">
-						<%		
-							}
-						%>
+						<c:choose>
+							<c:when test="${not empty requestScope.resume.headShot }">
+								<img style="width:250px" src="applicant/images/<jsp:getProperty property="headShot" name="resume"/>">
+							</c:when>
+							<c:otherwise>
+								<img style="width:250px" src="applicant/images/anonymous.png">
+							</c:otherwise>	
+						</c:choose>
 						<div align="center">
-							<a href="applicant/resumeBasicInfoPicUpload.html" class="uploade_btn">更换照片</a>
+							<a href="applicant/resumeBasicInfoPicUpload.jsp" class="uploade_btn">更换照片</a>
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -338,7 +336,6 @@
 		</div>
 	</div>
 
-	<iframe src="./foot.html" width="100%" height="150" scrolling="no"
-		frameborder="0"></iframe>
+	<iframe src="foot.html" width="100%" height="150" scrolling="no" frameborder="0"></iframe>
 </body>
 </html>

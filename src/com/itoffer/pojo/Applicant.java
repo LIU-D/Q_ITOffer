@@ -2,7 +2,7 @@ package com.itoffer.pojo;
 
 public class Applicant {
 
-	private Integer  id;
+	private int  id;
 	private	String	 email;
 	private	String   password;
 	private	String   timestamp;
@@ -17,10 +17,10 @@ public class Applicant {
 		this.password = password;
 	}
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
