@@ -51,8 +51,8 @@ if (cookies != null) {
 		<div class="page_name">登陆</div>
 		<div class="login_content">
 			<!-- 登录表单开始 -->
-			<form action="applicantLoginServlet" method="post"
-				onsubmit="return validate();">
+			<form action="applicantLoginServlet" method="post" onsubmit="return validate();">
+			<input type="hidden" name="requestPath" value="${requestScope.requestPath }">
 				<div class="login_l">
 					<p class="font14" style="color: gray">使用注册邮箱登录</p>
 					<div class="span1">

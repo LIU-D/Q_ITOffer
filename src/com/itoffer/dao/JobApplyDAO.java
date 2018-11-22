@@ -26,7 +26,6 @@ public class JobApplyDAO {
 	 */
 	public boolean save(JobApply jobApply){
 		boolean ret = true;
-		
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
@@ -43,22 +42,14 @@ public class JobApplyDAO {
 		}finally{
 			DBUtil.closeJDBC(rs, pStmt, conn);
 		}		
-		
 		return ret;
 	}
 	
 	public List<JobApply> getJobApplyList(int applicantId){
 		List<JobApply> list = new ArrayList<JobApply>();
-		
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
-		/*
-		 * 	SELECT a.APPLY_ID, a.APPLY_STATE, a.APPLY_DATE, j.job_id, j.JOB_NAME, c.COMPANY_ID, c.COMPANY_NAME
-			FROM tb_jobapply as a , tb_job as j, tb_company as c
-			WHERE a.job_id = j.job_id and j.company_id = c.company_id and a.applicant_id = 18
-		 * 
-		 */
 		String sql = "SELECT a.APPLY_ID, a.APPLY_STATE, a.APPLY_DATE, j.job_id, j.JOB_NAME, c.COMPANY_ID, c.COMPANY_NAME "
 				+ "FROM tb_jobapply as a , tb_job as j, tb_company as c "
 				+ "WHERE a.job_id = j.job_id and j.company_id = c.company_id and a.applicant_id = ?";
@@ -67,33 +58,26 @@ public class JobApplyDAO {
 				pStmt.setInt(1, applicantId);
 				rs = pStmt.executeQuery();
 				while(rs.next()){
-					
 					JobApply ja = new JobApply();
 					ja.setApplyId(rs.getInt("APPLY_ID"));
 					ja.setState(rs.getInt("APPLY_STATE"));
 					ja.setApplicantId(applicantId);
 					ja.setApplyDate(rs.getString("APPLY_DATE"));
-					
 					Job j = new Job();
 					j.setId(rs.getInt("JOB_ID"));
 					j.setName(rs.getString("JOB_NAME"));
-					
 					Company com = new Company();
 					com.setId(rs.getInt("COMPANY_ID"));
 					com.setName(rs.getString("COMPANY_NAME"));
-					
 					j.setCompany(com);
 					ja.setJob(j);
-					
 					list.add(ja);
 				}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			DBUtil.closeJDBC(rs, pStmt, conn);
 		}		
-		
 		return list;
 	}
 }
