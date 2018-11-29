@@ -101,7 +101,7 @@
         <div class="tn-box tn-widget tn-widget-content tn-corner-all it-home-box">
           <div class="tn-box-content tn-widget-content tn-corner-all">
 	        <!-- 企业图片展示 -->
-            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?action=info&id=${company.id }" target="_blank"> <img src="recruit/images/${company.pic }" width="990"> </a> </div>
+            <div class="it-company-keyimg tn-border-bottom tn-border-gray"> <a href="companyServlet?action=info&id=${company.id }"> <img src="recruit/images/${company.pic }" width="990"> </a> </div>
             <!-- 招聘职位展示 -->
             <c:forEach var="job" items="${company.jobs }">
             <div class="it-home-present">

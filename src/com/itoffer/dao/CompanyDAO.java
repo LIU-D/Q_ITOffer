@@ -66,7 +66,7 @@ public class CompanyDAO {
 				company.setPic(rs.getString("COMPANY_PIC"));
 				company.setSize(rs.getString("COMPANY_SIZE"));
 				company.setType(rs.getString("COMPANY_TYPE"));
-				company.setViewNum(rs.getInt("COMPANY_ID"));
+				company.setViewNum(rs.getInt("COMPANY_VIEWNUM"));
 				company.setName(rs.getString("COMPANY_NAME"));
 			}
 		} catch (SQLException e) {
@@ -182,5 +182,27 @@ public class CompanyDAO {
 		}
 		return recordCount;
 	}
-
+	
+	/**
+	 * 更新企业浏览次数
+	 * @param id
+	 */
+	public void updateCompanyViewCount(int id) {
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "UPDATE tb_company "
+					+ "SET company_viewnum = company_viewnum + 1 "
+					+ "WHERE company_id = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(rs, pstmt, conn);
+		}
+	}
+	
 }
