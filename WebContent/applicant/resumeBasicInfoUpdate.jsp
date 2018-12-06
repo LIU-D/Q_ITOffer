@@ -36,7 +36,7 @@
 					<jsp:setProperty property="resumeUpdate" value="<%=resume %>" name="resume"/>
 					<h3><font color="red"><jsp:getProperty property="updateResult" name="resume"/></font></h3>
 				<%} %>
-					<form action="applicant/resumeBasicInfoUpdate.jsp?action=update" method="post">
+					<form action="resumeBasicInfoServlet?action=update" method="post">
 					<table width="300" border="0" cellpadding="3" cellspacing="1" bgcolor="#EEEEEE">
 					
 					<input type="hidden" name="basicInfoID" value="<jsp:getProperty property='basicInfoID' name='resume'/>" >

@@ -52,12 +52,11 @@ public class ResumeBasicInfoServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		
 		//获取请求操作类型
-		String type = request.getParameter("type");
-		System.out.println("TYPE:" + type);
+		String action = request.getParameter("action");
 		//简历添加操作
-		if(type.equals("add")) {
+		if(action.equals("add")) {
 			//封装请求数据
-			ResumeBasicInfo resume  = addResumeBasicInfo(request);
+			ResumeBasicInfo resume  = updateResumeBasicInfo(request);
 			//将数据存储到数据库
 			ResumeDAO dao = new ResumeDAO();
 			int basicInfoID = dao.save(resume);
@@ -66,17 +65,22 @@ public class ResumeBasicInfoServlet extends HttpServlet {
 			//System.out.println("basicInfoID:" + basicInfoID);
 			//添加简历成功则重定向到简历界面，否则在重新添加
 			if(basicInfoID > 0){
-				response.sendRedirect("applicant/resume.html");
+				response.sendRedirect("resumeBasicInfoServlet?action=info");
 			}else{
 				response.sendRedirect("applicant/resumeBasicInfoAdd.html");
 			}
-		} else if(type.equals("add")) {
-			
+		}else if(action.equals("update")) {
+			ResumeBasicInfo resume  = this.updateResumeBasicInfo(request);
+			int basicInfoID = Integer.parseInt(request.getParameter("basicInfoID"));
+			resume.setBasicInfoID(basicInfoID);
+			resume.setResumeUpdate(resume);
+			request.setAttribute("resume", resume);
+			request.getRequestDispatcher("applicant/resumeBasicInfoUpdate.jsp").forward(request, response);
 		}
 	}
 	
 	//将请求的简历数据封装成一个对象
-	private ResumeBasicInfo addResumeBasicInfo(HttpServletRequest request) {
+	private ResumeBasicInfo updateResumeBasicInfo(HttpServletRequest request) {
 		//从会话对象获取当前登陆用户标识
 		Applicant applicant = (Applicant)request.getSession().getAttribute("SESSION_APPLICANT");
 		//假设已经取得applicantID
@@ -114,4 +118,5 @@ public class ResumeBasicInfoServlet extends HttpServlet {
 		
 		return resume;
 	}
+	
 }
