@@ -12,7 +12,19 @@
 <meta
 	content="锐聘专注于为企业提供高效的人力资源解决方案，同时面向IT类技术人才推出快速一站式免费就业服务。秉承QST青软实训人才服务理念，为数千家企业量身定做个性化、全程化的人才培养体系，同时帮助中高级人才铺设成功之路，为人才和企业架设起沟通之桥。"
 	name="description">
-<script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+function ajaxValidate(obj){
+	var email = obj.value;
+	var type = "ajaxValidate";
+	$.post("applicantRegisterServlet", { 
+		email : email, 
+		type :  type 
+	    }, function (data, textStatus){
+	      $("#emailValidate").html(data); // 把返回的数据添加到页面上
+	    });
+}
+
 	function validate() {
 		var email = document.getElementById("email");
 		var password = document.getElementById("password");
@@ -65,7 +77,8 @@
 				<div class="login_l">
 					<div class="span1">
 						<label class="tn-form-label">邮箱：</label> <input class="tn-textbox"
-							type="text" name="email" id="email">
+							type="text" name="email" onblur="ajaxValidate(this)" id="email">
+						<label style="color:red;" id="emailValidate"></label>
 					</div>
 					<div class="span1">
 						<label class="tn-form-label">密码：</label> <input class="tn-textbox"
@@ -104,5 +117,7 @@
 		</div>
 	</div>
 	<iframe src="foot.html" width="100%" height="150" scrolling="no" frameborder="0"></iframe>
+	
+	
 </body>
 </html>

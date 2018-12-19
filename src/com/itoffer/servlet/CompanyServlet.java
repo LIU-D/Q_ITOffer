@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.itoffer.dao.CompanyDAO;
 import com.itoffer.dao.JobDAO;
 import com.itoffer.pojo.Company;
+import com.itoffer.pojo.CompanyPageBean;
 import com.itoffer.pojo.Job;
 /************************************************
  * @author		Lixd027
@@ -33,6 +34,15 @@ public class CompanyServlet extends HttpServlet {
 			List<Job> jobList = jobdao.getJobListByCompanyID(companyID);
 			request.setAttribute("jobList", jobList);
 			request.getRequestDispatcher("recruit/company.jsp").forward(request, response);
+		}else if(action.equals("pageList")) {
+			String pageNo = request.getParameter("pageNo");
+			if(pageNo == null || "".equals(pageNo)) {
+				pageNo = "1";
+			}
+			CompanyPageBean pagination = new CompanyPageBean();
+			pagination.setPageNo(Integer.parseInt(pageNo));
+			request.setAttribute("pagination", pagination);
+			request.getRequestDispatcher("include_companyList.jsp").forward(request, response);
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

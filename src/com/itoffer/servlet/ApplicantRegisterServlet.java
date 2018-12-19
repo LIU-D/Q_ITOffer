@@ -49,12 +49,28 @@ public class ApplicantRegisterServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String verifyCode = request.getParameter("verifyCode");
 		System.out.println("input verifycode: " + verifyCode);
+		
+		if("ajaxValidate".equals(request.getParameter("type"))) {
+			//判断邮箱是否已被注册
+			ApplicantDAO dao = new ApplicantDAO();
+			boolean flag = dao.isExistEmail(email);
+			if(flag) {
+				//邮箱已注册，进行错误提示
+				out.print("邮箱已被注册！");
+			} else {
+				out.print("邮箱可以使用！");
+			}
+			return;
+		}
+		
+		
+		
 		//判断验证码是否正确
 		String sessionValidateCode = (String)request.getSession().getAttribute("SESSION_VALIDATECODE");
 		if(!sessionValidateCode.equals(verifyCode)) {
 			out.print("<script type='text/javascript'>");
 			out.print("alert('验证码错误，请重新输入！');");
-			out.print("window.location='register.html';");
+			out.print("window.location='register.jsp';");
 			out.print("</script>");
 		} else {
 			//判断邮箱是否已被注册
@@ -64,7 +80,7 @@ public class ApplicantRegisterServlet extends HttpServlet {
 				//邮箱已注册，进行错误提示
 				out.print("<script type='text/javascript'>");
 				out.print("alert('邮箱已被注册，请重新输入！');");
-				out.print("window.location='register.html';");
+				out.print("window.location='register.jsp';");
 				out.print("</script>");
 			} else {
 				//邮箱未被注册，保存注册用户信息

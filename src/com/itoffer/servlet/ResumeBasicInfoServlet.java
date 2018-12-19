@@ -75,7 +75,7 @@ public class ResumeBasicInfoServlet extends HttpServlet {
 			resume.setBasicInfoID(basicInfoID);
 			resume.setResumeUpdate(resume);
 			request.setAttribute("resume", resume);
-			request.getRequestDispatcher("applicant/resumeBasicInfoUpdate.jsp").forward(request, response);
+			request.getRequestDispatcher("applicant/resumeBasicInfoUpdate.jsp").include(request, response);
 		}
 	}
 	
